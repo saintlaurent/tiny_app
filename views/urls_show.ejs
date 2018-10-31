@@ -6,11 +6,11 @@
 <body>
    <% include ./partials/_header %>
    <%= longURL %>
-   <form method="POST" action="/urls"
+   <form method="POST" action="/urls/<%= shortURL %>/update">
     <label for="input">Change URL:</label>
     <input id="input" type="text" name="input" placeholder="new URL" style="width: 300px">
     <button>update</button>
- </form>
+  </form>
     <br>
    <%= shortURL %>
 </body>

@@ -10,9 +10,15 @@
       <% for(var link in urls){ %>
         <li>
           <%= link  %>
+           -
+          <a href="#"> <%= urls[link] %> </a>
+          <br>
           <form method="POST" action="/urls/<%= link %>/delete">
             <button>delete</button>
-          </form> - <%= urls[link] %> <a href="#">link</a>
+          </form>
+          <form method="GET" action="/urls/<%= link %>">
+            <button>update</button>
+          </form>
         </li>
       <% } %>
 
