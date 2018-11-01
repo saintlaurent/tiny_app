@@ -6,9 +6,12 @@
 <body>
     <% if(username){ %>
     <h1>hello <%= username %> </h1>
+    <form method ="POST" action ="/logout">
+      <button>logout</button>
+    </form>
     <% } else { %>
     <form method="POST" action="/login">
-      <input type="text" name="username">
+      <input type="text" name="username" placeholder="login">
       <button>submit</button>
     </form>
     <% } %>
