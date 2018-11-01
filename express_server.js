@@ -2,9 +2,15 @@ var express = require("express");
 var app = express();
 var PORT = 8080; // default port 8080
 const bodyParser = require("body-parser");
-app.use(bodyParser.urlencoded({extended: true}));
+var cookieParser = require('cookie-parser');
+
+
+
 
 app.set("view engine", "ejs");
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
@@ -24,6 +30,7 @@ function generateRandomString() {
 
 app.get("/", (req, res) => {
   res.send("Hello!");
+
 });
 
 app.get("/urls.json", (req, res) => {
@@ -35,7 +42,10 @@ app.get("/hello", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = { urls: urlDatabase };
+  let templateVars = {
+    urls: urlDatabase,
+    username: req.cookies["username"],
+   };
   res.render("urls_index", templateVars);
 });
 
@@ -51,7 +61,8 @@ app.get("/u/:shortURL", (req, res) => {
 app.get("/urls/:id", (req, res) => {
   let templateVars = {
     shortURL: req.params.id,
-    longURL: urlDatabase[req.params.id]
+    longURL: urlDatabase[req.params.id],
+    username: req.cookies["username"]
   };
   res.render("urls_show", templateVars);
 });
@@ -77,7 +88,13 @@ app.post("/urls/:id/update", (req, res) => {
   let shortURL = generateRandomString();
   urlDatabase[shortURL] = longURL;
   res.redirect(`http://localhost:8080/urls/${shortURL}`)
-})
+});
+
+app.post("/login", (req, res) => {
+let username = req.body.username;
+    res.cookie("username", username);
+  res.redirect("/urls");
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

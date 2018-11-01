@@ -4,6 +4,13 @@
   <title>TinyApp</title>
 </head>
 <body>
-    <h1>hello</h1>
+    <% if(username){ %>
+    <h1>hello <%= username %> </h1>
+    <% } else { %>
+    <form method="POST" action="/login">
+      <input type="text" name="username">
+      <button>submit</button>
+    </form>
+    <% } %>
 </body>
 </html>
