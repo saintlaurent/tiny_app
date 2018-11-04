@@ -11,7 +11,7 @@
         <li>
           <%= link  %>
            -
-          <a href="#"> <%= urls[link] %> </a>
+          <a href="#"> <%= urls[link].longURL %> </a>
           <br>
           <form method="POST" action="/urls/<%= link %>/delete">
             <button>delete</button>
